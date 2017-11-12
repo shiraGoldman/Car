@@ -91,7 +91,7 @@ Compare two cars by year
 @param car - the second car to compare
 @return the older car
 */
-int Car::compare_by_year(Car &car) const
+int Car::compare_by_year(const Car &car) const
 {
 	int result = 0; // default value: cars are equal
 	if (this->year < car.year) // left car is older
@@ -111,7 +111,7 @@ Compare two cars by engine volume
 @param car - the second car to compare
 @return the car that has a greater engine volume
 */
-int Car::compare_by_engine_volume(Car &car) const
+int Car::compare_by_engine_volume(const Car &car) const
 {
 	int result = 0; // default value: cars are equal
 	if (this->year > car.year) // left car is greater

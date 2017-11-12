@@ -32,6 +32,6 @@ public:
 	char* getColor();
 	
 	void print_car() const;
-	int compare_by_year(Car &) const;
-	int compare_by_engine_volume(Car &) const;
+	int compare_by_year(const Car &) const;
+	int compare_by_engine_volume(const Car &) const;
 };
