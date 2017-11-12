@@ -7,7 +7,9 @@ using namespace std;
 
 #define SIZE_OF_COLOR 10
 
-// constructor
+// constructors
+Car::Car() {}
+
 Car::Car(string c_make, string c_model, unsigned int c_year, double c_engineVolume, char c_color[SIZE_OF_COLOR])
 {
 	assert(c_year >= 0 && c_engineVolume >= 0 && strlen(c_color) <= SIZE_OF_COLOR - 1 && strlen(c_color) >= 0);
@@ -47,22 +49,22 @@ void Car::setColor(char value[SIZE_OF_COLOR])
 
 // getters
 
-string Car::getMake()
+string Car::getMake() const
 {
 	return make;
 }
 
-string Car::getModel()
+string Car::getModel() const
 {
 	return model;
 }
 
-unsigned int Car::getYear()
+unsigned int Car::getYear() const
 {
 	return year;
 }
 
-double Car::getEngineVolume()
+double Car::getEngineVolume() const
 {
 	return engineVolume;
 }
@@ -75,7 +77,7 @@ char* Car::getColor()
 /*
 Prints the car details
 */
-void Car::print_car()
+void Car::print_car() const
 {
 	cout << "Make: " + make << endl;
 	cout << "Model: " + model << endl;
@@ -89,10 +91,19 @@ Compare two cars by year
 @param car - the second car to compare
 @return the older car
 */
-Car* Car::compare_by_year(Car* car)
+int Car::compare_by_year(Car &car) const
 {
-	assert(car != NULL);
-	return (this->year > car->year) ? car : this;
+	int result = 0; // default value: cars are equal
+	if (this->year < car.year) // left car is older
+	{
+		result = 1;
+	}
+	else if (this->year > car.year) // right car is older
+	{
+		result = -1;
+	}
+	
+	return result;
 }
 
 /*
@@ -100,8 +111,17 @@ Compare two cars by engine volume
 @param car - the second car to compare
 @return the car that has a greater engine volume
 */
-Car* Car::compare_by_engine_volume(Car* car)
+int Car::compare_by_engine_volume(Car &car) const
 {
-	assert(car != NULL);
-	return this->engineVolume > car->engineVolume ? this : car;
+	int result = 0; // default value: cars are equal
+	if (this->year > car.year) // left car is greater
+	{
+		result = 1;
+	}
+	else if (this->year < car.year) // right car is greater
+	{
+		result = -1;
+	}
+
+	return result;
 }

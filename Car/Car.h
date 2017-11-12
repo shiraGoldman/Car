@@ -16,6 +16,7 @@ private:
 	char color[SIZE_OF_COLOR];
 
 public:
+	Car();
 	Car(string, string, unsigned int, double, char[SIZE_OF_COLOR]);
 	
 	void setMake(string);
@@ -24,13 +25,13 @@ public:
 	void setEngineVolume(double);
 	void setColor(char[SIZE_OF_COLOR]);
 	
-	string getMake();
-	string getModel();
-	unsigned int getYear();
-	double getEngineVolume();
+	string getMake() const;
+	string getModel() const;
+	unsigned int getYear() const;
+	double getEngineVolume() const;
 	char* getColor();
 	
-	void print_car();
-	Car* compare_by_year(Car*);
-	Car* compare_by_engine_volume(Car*);
+	void print_car() const;
+	int compare_by_year(Car &) const;
+	int compare_by_engine_volume(Car &) const;
 };

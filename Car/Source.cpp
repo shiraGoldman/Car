@@ -3,7 +3,6 @@
 #include "Car.h"
 using namespace std;
 
-#define NUM_OF_CARS 2
 #define SIZE_OF_COLOR 10
 
 /*
@@ -23,17 +22,22 @@ bool input_check(unsigned int year, double engineVolume, char color[SIZE_OF_COLO
 	return true;
 }
 
-int main()
+/*
+Gets input of a car and initialize a new car object
+@param index - index of the car (0/1)
+@param car - the car to initialize
+*/
+void getInput(int index, Car& car)
 {
-	Car* cars[NUM_OF_CARS];
 	string make, model;
 	int year;
 	double engineVolume;
 	char color[SIZE_OF_COLOR];
-	bool check_result;
-	for (int i = 0; i < NUM_OF_CARS; i++)
+	bool check_result, finished = false;
+
+	while (!finished)
 	{
-		cout << "Please enter car "<<i+1<<" details:\nmake, model, year, engine volume (in cc) and color (9 chars) " << endl;
+		cout << "Please enter car " << index << " details:\nmake, model, year, engine volume (in cc) and color (9 chars) " << endl;
 		cin >> make >> model >> year >> engineVolume >> color;
 		check_result = input_check(year, engineVolume, color);
 		if (!check_result || cin.fail())
@@ -42,19 +46,34 @@ int main()
 			cin.clear();
 			string ignoreline;
 			getline(cin, ignoreline);
-			i = i-1;
 			continue;
 		}
-		cars[i] = new Car(make, model, year, engineVolume, color);
+
+		finished = true;
 	}
+
+	car.setMake(make);
+	car.setModel(model);
+	car.setYear(year);
+	car.setEngineVolume(engineVolume);
+	car.setColor(color);
+}
+
+int main()
+{
+	Car car1, car2;
+	getInput(1, car1);
+	getInput(2, car2);
+	//car2 = getInput(NUM_OF_CARS);
+
 	cout << "Car 1 Details:" << endl;
-	cars[0]->print_car();
+	car1.print_car();
 	cout << endl << "Car 2 Details:" << endl;
-	cars[1]->print_car();
+	car2.print_car();
 	cout << endl << endl;
 	
 	cout << "Comparisons:" << endl;
-	if (cars[0]->compare_by_year(cars[1]) == cars[0])
+	if (car1.compare_by_year(car2) > 0)
 	{
 		cout << "Car 1 is older" << endl;
 	}
@@ -64,7 +83,7 @@ int main()
 		cout << "Car 2 is older" << endl;
 	}
 
-	if (cars[0]->compare_by_engine_volume(cars[1]) == cars[0])
+	if (car1.compare_by_engine_volume(car2) < 0)
 	{
 		cout << "Car 1 has a greater engine volume" << endl;
 	}
@@ -72,10 +91,5 @@ int main()
 	else
 	{
 		cout << "Car 2 has a greater engine volume" << endl;
-	}
-
-	for (int i = 0; i < NUM_OF_CARS; i++)
-	{
-		delete cars[i];
 	}
 }
